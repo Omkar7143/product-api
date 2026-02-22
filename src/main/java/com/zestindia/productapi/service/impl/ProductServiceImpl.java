@@ -1,5 +1,6 @@
 package com.zestindia.productapi.service.impl;
 
+import org.springframework.transaction.annotation.Transactional;
 import com.zestindia.productapi.dto.request.ProductRequest;
 import com.zestindia.productapi.dto.response.ItemResponse;
 import com.zestindia.productapi.dto.response.ProductResponse;
@@ -23,19 +24,21 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
-    @Override
+    @Transactional
     public Page<ProductResponse> getAllProducts(Pageable pageable) {
         return productRepository.findAll(pageable).map(this::mapToResponse);
     }
 
-    @Override
+
+
+    @Transactional
     public ProductResponse getProductById(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
         return mapToResponse(product);
     }
 
-    @Override
+    @Transactional
     public ProductResponse createProduct(ProductRequest request, String username) {
         Product product = Product.builder()
                 .productName(request.getProductName())
@@ -45,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
         return mapToResponse(productRepository.save(product));
     }
 
-    @Override
+    @Transactional
     public ProductResponse updateProduct(Long id, ProductRequest request, String username) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
@@ -55,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
         return mapToResponse(productRepository.save(product));
     }
 
-    @Override
+    @Transactional
     public void deleteProduct(Long id) {
         if (!productRepository.existsById(id)) {
             throw new ResourceNotFoundException("Product not found with id: " + id);
