@@ -25,18 +25,29 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse register(RegisterRequest request) {
+
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
             throw new RuntimeException("Username already exists");
+        }
+
+        // 🔥 Convert role safely
+        Role role;
+
+        try {
+            role = Role.valueOf("ROLE_" + request.getRole().toUpperCase());
+        } catch (Exception e) {
+            throw new RuntimeException("Invalid role. Use USER or ADMIN");
         }
 
         User user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.ROLE_USER)
+                .role(role)
                 .build();
 
         String accessToken = jwtUtil.generateAccessToken(user.getUsername());
         String refreshToken = jwtUtil.generateRefreshToken(user.getUsername());
+
         user.setRefreshToken(refreshToken);
         userRepository.save(user);
 
@@ -48,7 +59,6 @@ public class AuthServiceImpl implements AuthService {
                 .role(user.getRole().name())
                 .build();
     }
-
     @Override
     public AuthResponse login(LoginRequest request) {
         authenticationManager.authenticate(

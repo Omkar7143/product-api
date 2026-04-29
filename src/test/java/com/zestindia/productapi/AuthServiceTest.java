@@ -38,6 +38,9 @@ class AuthServiceTest {
         request.setUsername("testuser");
         request.setPassword("password");
 
+        // 🔥 FIX: Add role (THIS WAS MISSING)
+        request.setRole("USER");
+
         when(userRepository.findByUsername("testuser")).thenReturn(Optional.empty());
         when(passwordEncoder.encode(any())).thenReturn("encodedPassword");
         when(jwtUtil.generateAccessToken(any())).thenReturn("accessToken");
@@ -58,6 +61,9 @@ class AuthServiceTest {
         RegisterRequest request = new RegisterRequest();
         request.setUsername("existinguser");
         request.setPassword("password");
+
+        // 🔥 FIX: Add role here too
+        request.setRole("USER");
 
         when(userRepository.findByUsername("existinguser"))
                 .thenReturn(Optional.of(new User()));
