@@ -1,98 +1,130 @@
-# Product API - Zest India Assignment
+# 🚀 Product API – Spring Boot Backend (Deployed)
 
-Enterprise-grade Product Management REST API built with Spring Boot, JWT Authentication, and MySQL.
+## 📌 Overview
 
-## Tech Stack
+This is a **Production-Ready Product Management REST API** built using Spring Boot.
+It supports authentication, role-based access control, and full CRUD operations for products and items.
 
-- Java 17, Spring Boot 3.5.11
-- Spring Security + JWT (jjwt 0.12.3)
-- Spring Data JPA + MySQL 8.0
-- Swagger/OpenAPI 3 (Springdoc 2.6.0)
-- Docker + Docker Compose
-- JUnit 5 + Mockito (8 tests passing ✅)
+---
 
-## API Endpoints
+## 🌐 Live Demo
 
-### Auth
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | /api/v1/auth/register | Register new user |
-| POST | /api/v1/auth/login | Login and get JWT token |
-| POST | /api/v1/auth/refresh | Refresh JWT token |
+👉 https://product-api-s592.onrender.com/swagger-ui.html
 
-### Products (JWT Required)
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | /api/v1/products | Get all products |
-| GET | /api/v1/products/{id} | Get product by ID |
-| POST | /api/v1/products | Create new product |
-| PUT | /api/v1/products/{id} | Update product |
-| DELETE | /api/v1/products/{id} | Delete product (ADMIN only) |
+---
 
-### Items (JWT Required)
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | /api/v1/products/{id}/items | Get items for product |
-| POST | /api/v1/products/{id}/items | Add item to product |
+## 🛠️ Tech Stack
 
-## Run Locally
+* Java 17
+* Spring Boot
+* Spring Security (JWT Authentication)
+* Spring Data JPA
+* MySQL (Railway Cloud Database)
+* Docker (Multi-stage Build)
+* Render (Deployment)
+* Swagger (API Documentation)
 
-### Prerequisites
-- Java 17+
-- Maven 3.6+
-- MySQL 8.0
+---
 
-### Steps
+## 🔐 Features
+
+* JWT Authentication (Login/Register/Refresh Token)
+* Role-Based Authorization (USER / ADMIN)
+* Product CRUD APIs
+* Item Management APIs
+* Global Exception Handling
+* Clean Controller-Service-Repository Architecture
+
+---
+
+## 📂 Project Structure
+
+```
+com.zestindia.productapi
+│
+├── controller        → REST APIs
+├── service           → Business logic
+├── repository        → Database access
+├── entity            → Database models
+├── dto               → Request/Response models
+├── security          → JWT + Spring Security config
+├── exception         → Global error handling
+```
+
+---
+
+## ⚙️ API Endpoints
+
+### 🔑 Auth APIs
+
+* POST /api/v1/auth/register
+* POST /api/v1/auth/login
+* POST /api/v1/auth/refresh
+
+### 📦 Product APIs
+
+* GET /api/v1/products
+* POST /api/v1/products
+* PUT /api/v1/products/{id}
+* DELETE /api/v1/products/{id}
+
+### 📄 Item APIs
+
+* GET /api/v1/products/{id}/items
+* POST /api/v1/products/{id}/items
+
+---
+
+## 🧪 How to Run Locally
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/Omkar7143/product-api.git
 cd product-api
-mvn clean install -DskipTests
-mvn spring-boot:run
+mvn clean install
+java -jar target/product-api-0.0.1-SNAPSHOT.jar
 ```
 
-The app will start on `http://localhost:8080`
+---
 
-## Run with Docker
+## 🗄️ Database Setup
+
+Update `application.properties` with your MySQL credentials.
+
+---
+
+## 🐳 Docker Support
 
 ```bash
-mvn clean package -DskipTests
-docker-compose up --build
+docker build -t product-api .
+docker run -p 8080:8080 product-api
 ```
 
-## Swagger UI
+---
 
-```
-http://localhost:8080/swagger-ui/index.html
-```
+## 📸 API Testing
 
-## Test Results
+Use Swagger UI:
+👉 http://localhost:8080/swagger-ui.html
 
-```
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0 ✅
-```
+---
 
-## Project Structure
+## 🎯 Future Improvements
 
-```
-src/main/java/com/zestindia/productapi/
-├── config/          # Security & Swagger config
-├── controller/      # REST controllers
-├── dto/             # Request/Response DTOs
-├── entity/          # JPA entities
-├── exception/       # Global exception handler
-├── repository/      # Spring Data JPA repositories
-├── security/        # JWT filter & user details
-└── service/         # Business logic
-```
+* Add pagination & filtering
+* Add unit + integration tests
+* CI/CD pipeline
+* Redis caching
 
-## Environment Variables (Docker)
+---
 
-| Variable | Description |
-|----------|-------------|
-| SPRING_DATASOURCE_URL | MySQL connection URL |
-| SPRING_DATASOURCE_USERNAME | Database username |
-| SPRING_DATASOURCE_PASSWORD | Database password |
-| APP_JWT_SECRET | JWT secret key |
-| APP_JWT_EXPIRATION | JWT expiry in ms (default: 86400000) |
-| APP_JWT_REFRESH_EXPIRATION | Refresh token expiry in ms |
+## 👨‍💻 Author
+
+**Omkar Jadhav**
+📧 [omkar.s.jadhav321@gmail.com](mailto:omkar.s.jadhav321@gmail.com)
+🔗 https://github.com/Omkar7143
+
+---
+
+## ⭐ If you like this project
+
+Give it a ⭐ on GitHub
